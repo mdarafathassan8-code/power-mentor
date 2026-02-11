@@ -8,7 +8,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      height: 50vh;
       background: #f4f6f8;
       font-family: Arial, sans-serif;
     }
@@ -19,7 +19,7 @@
       border-radius: 12px;
       text-align: center;
       box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      max-width: 400px;
+      max-width: 500px;
     }
 
     .success-box h1 {
@@ -57,7 +57,24 @@
   }, 5000);
 </script>
 
+<p id="redirect-text" style="text-align:center; font-size:16px; margin-top:20px;">
+  ৫ সেকেন্ড পর হোম পেজে নিয়ে যাওয়া হবে...
+</p>
 
+<script>
+  let timeLeft = 5;
+  const text = document.getElementById("redirect-text");
+
+  const countdown = setInterval(() => {
+    timeLeft--;
+    text.innerText = timeLeft + " সেকেন্ড পর হোম পেজে নিয়ে যাওয়া হবে...";
+
+    if (timeLeft <= 0) {
+      clearInterval(countdown);
+      window.location.href = "/";
+    }
+  }, 1000);
+</script>
 
 
 </body>

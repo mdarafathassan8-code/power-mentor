@@ -810,50 +810,49 @@ document.addEventListener("DOMContentLoaded", function () {
   </div>
 </section>
 
+<button id="orderBtn">অর্ডার করুন</button>
 
-
-<script>
-document.querySelectorAll(".faq-question").forEach(q=>{
-q.onclick=()=>{const a=q.nextElementSibling;
-a.style.maxHeight?a.style.maxHeight=null:a.style.maxHeight=a.scrollHeight+"px"}
-});
-	</script>
 <script>
 document.getElementById("orderBtn").onclick = function() {
+    // TikTok detect
+    var isTikTok = /TikTok/.test(navigator.userAgent);
+    
+    // Alert + instruction
+    if(isTikTok){
+        alert("For best experience, please open this link in your phone's browser (Chrome/Safari) to place the order.");
+    }
 
-  // TikTok browser detect
-  var isTikTok = /TikTok/.test(navigator.userAgent);
-  if(isTikTok){
-    alert("Best experience: Please open this link in your phone's browser (Chrome/Safari) to place the order.");
-  }
+    // Form values
+    var name = document.querySelector('input[name="Name"]').value;
+    var phone = document.querySelector('input[name="Phone"]').value;
+    var address = document.querySelector('textarea[name="Address"]').value;
 
-  // Form data
-  var name = document.querySelector('input[name="Name"]').value;
-  var phone = document.querySelector('input[name="Phone"]').value;
-  var address = document.querySelector('textarea[name="Address"]').value;
+    var product = "Power Mentor Premium Book";
+    var price = "1499 BDT";
 
-  var product = "Power Mentor Premium Book";
-  var price = "1499 BDT";
+    var message = encodeURIComponent(
+        "New Order\n\n"+
+        "Name: "+name+"\n"+
+        "Phone: "+phone+"\n"+
+        "Address: "+address+"\n"+
+        "Product: "+product+"\n"+
+        "Price: "+price
+    );
 
-  // Encode message
-  var message = encodeURIComponent(
-    "New Order\n\n"+
-    "Name: " + name + "\n"+
-    "Phone: " + phone + "\n"+
-    "Address: " + address + "\n"+
-    "Product: " + product + "\n"+
-    "Price: " + price
-  );
+    // WhatsApp number
+    var whatsappNumber = "17745271761"; // country code + number
+    var whatsappLink = "https://wa.me/" + whatsappNumber + "?text=" + message;
 
-  // Correct WhatsApp link (USA number)
-  var whatsappLink = "https://wa.me/17745271761?text=" + message;
-
-  // Open new tab / external browser
-  var a = document.createElement("a");
-  a.href = whatsappLink;
-  a.target = "_blank";
-  a.rel = "noopener noreferrer";
-  a.click();
+    // fallback: show link if browser block
+    var canOpen = confirm("Click OK to open WhatsApp in your browser, or Cancel to copy the link.");
+    if(canOpen){
+        window.location.href = whatsappLink; // try to open
+    } else {
+        // Copy link to clipboard
+        navigator.clipboard.writeText(whatsappLink).then(function(){
+            alert("Link copied! Open in your browser to place the order.");
+        });
+    }
 };
 </script>
 <footer class="footer-box">

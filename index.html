@@ -819,27 +819,42 @@ a.style.maxHeight?a.style.maxHeight=null:a.style.maxHeight=a.scrollHeight+"px"}
 });
 	</script>
 <script>
-function sendOrder(e){
-e.preventDefault();
+document.getElementById("orderBtn").onclick = function() {
 
-var name = document.querySelector('input[name="Name"]').value;
-var address = document.querySelector('textarea[name="Address"]').value;
-var phone = document.querySelector('input[name="Phone"]').value;
-var product = "Power Mentor Premium Book";
-var price = "1499 BDT";
+  // TikTok browser detect
+  var isTikTok = /TikTok/.test(navigator.userAgent);
+  if(isTikTok){
+    alert("Best experience: Please open this link in your phone's browser (Chrome/Safari) to place the order.");
+  }
 
-var message =
-"New Order%0A%0A"+
-"Name: "+name+"%0A"+
-"Phone: "+phone+"%0A"+
-"Address: "+address+"%0A"+
-"Product: "+product+"%0A"+
-"Price: "+price;
+  // Form data
+  var name = document.querySelector('input[name="Name"]').value;
+  var phone = document.querySelector('input[name="Phone"]').value;
+  var address = document.querySelector('textarea[name="Address"]').value;
 
-var whatsapp = "https://wa.me/1 (774) 527-1761?text="+message;
+  var product = "Power Mentor Premium Book";
+  var price = "1499 BDT";
 
-window.location.href = whatsapp;
-}
+  // Encode message
+  var message = encodeURIComponent(
+    "New Order\n\n"+
+    "Name: " + name + "\n"+
+    "Phone: " + phone + "\n"+
+    "Address: " + address + "\n"+
+    "Product: " + product + "\n"+
+    "Price: " + price
+  );
+
+  // Correct WhatsApp link (USA number)
+  var whatsappLink = "https://wa.me/17745271761?text=" + message;
+
+  // Open new tab / external browser
+  var a = document.createElement("a");
+  a.href = whatsappLink;
+  a.target = "_blank";
+  a.rel = "noopener noreferrer";
+  a.click();
+};
 </script>
 <footer class="footer-box">
     <div class="footer-links">

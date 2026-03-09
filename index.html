@@ -790,7 +790,7 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="billing-section">
       <h2>Billing Details</h2>
 
-      <form onsubmit="sendOrder(event)">
+ 		<form onsubmit="sendMail(event)">
         <input type="hidden" name="_subject" value="New Order - Power Mentor Premium Book">
         <input type="hidden" name="_next" value="https://power-mentor.vercel.app/success.html">
         <input type="hidden" name="_captcha" value="false">
@@ -817,31 +817,28 @@ document.querySelectorAll(".faq-question").forEach(q=>{
 q.onclick=()=>{const a=q.nextElementSibling;
 a.style.maxHeight?a.style.maxHeight=null:a.style.maxHeight=a.scrollHeight+"px"}
 });
-</script>
-		<script>
-function sendOrder(e){
+	</script>
+<script>
+function sendMail(e){
 e.preventDefault();
 
 var name = document.querySelector('input[name="Name"]').value;
 var address = document.querySelector('textarea[name="Address"]').value;
 var phone = document.querySelector('input[name="Phone"]').value;
-var product = "Power Mentor Premium Book";
-var price = "1499 BDT";
 
-var message =
-"New Order%0A%0A"+
-"Name: "+name+"%0A"+
-"Phone: "+phone+"%0A"+
-"Address: "+address+"%0A"+
-"Product: "+product+"%0A"+
-"Price: "+price;
+var subject = "New Order - Power Mentor Premium Book";
 
-var whatsapp = "https://wa.me/880187?text="+message;
+var body =
+"Name: " + name + "%0A" +
+"Phone: " + phone + "%0A" +
+"Address: " + address + "%0A" +
+"Product: Power Mentor Premium Book%0A" +
+"Price: 1499 BDT";
 
-window.location.href = whatsapp;
+window.location.href =
+"mailto:powermentorshop@gmail.com?subject=" + subject + "&body=" + body;
 }
 </script>
-
 <footer class="footer-box">
     <div class="footer-links">
         <a href="#">About Us</a> |
